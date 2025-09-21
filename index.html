@@ -118,45 +118,38 @@
 </section>
 
 <section class="hero is-light is-small">
-  <div class="hero-body">
+  <!-- <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item item-Egg">
           <video poster="" id="Egg" autoplay muted loop playsinline 
                  disablePictureInPicture disableRemotePlayback
                  height="100%" style="pointer-events: none;">
-            <source src="./static/videos/Egg.mp4" type="video/mp4">
+            <source src="./static/videos/Chopsticks.mp4" type="video/mp4">
           </video>
         </div>
         <div class="item item-Stack">
           <video poster="" id="Stack" autoplay muted loop playsinline
                  disablePictureInPicture disableRemotePlayback
                  height="100%" style="pointer-events: none;">
-            <source src="./static/videos/Stack.mp4" type="video/mp4">
+            <source src="./static/videos/Brush.mp4" type="video/mp4">
           </video>
         </div>
         <div class="item item-Can">
           <video poster="" id="Can" autoplay muted loop playsinline
                  disablePictureInPicture disableRemotePlayback
                  height="100%" style="pointer-events: none;">
-            <source src="./static/videos/Can.mp4" type="video/mp4">
+            <source src="./static/videos/Scissors.mp4" type="video/mp4">
           </video>
         </div>
         <div class="item item-GraspApple">
           <video poster="" id="GraspApple" autoplay muted loop playsinline
                  disablePictureInPicture disableRemotePlayback
                  height="100%" style="pointer-events: none;">
-            <source src="./static/videos/GraspApple.mp4" type="video/mp4">
+            <source src="./static/videos/Spray.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="item item-Bottle">
-          <video poster="" id="Bottle" autoplay muted loop playsinline
-                 disablePictureInPicture disableRemotePlayback
-                 height="100%" style="pointer-events: none;">
-            <source src="./static/videos/Bottle.mp4" type="video/mp4">
-          </video>
-        </div>
-      </div>
+      </div> -->
       
       <style>
         /* 隐藏所有控制元素 */
@@ -194,7 +187,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We introduce TipMatch, 
+            Teleoperating dexterous robot hands for tool manipulation is challenging due to both kinematic mismatches and morphological discrepancies between human and robotic hands. In this paper, we present TipMatch, a novel Cartesian mapping-based retargeting algorithm that compensates for both types of discrepancies. The core of our method lies in leveraging a neural network to predict optimization objectives that account for morphological mismatches, which are difficult to handle with manually designed objectives. Our method ensures reliable gesture alignment for simpler tasks while allowing robust performance on complex tool-use scenarios. Extensive real-world experiments on LeapHand show that TipMatch achieves an average success rate of 84.0% across challenging tasks, maintains high success rates on simpler tasks, and provides larger fingertip workspaces with smoother and more stable mappings compared to existing approaches. 
           </p>
         </div>
       </div>
@@ -228,7 +221,15 @@
       <div class="column is-full-width">
         <h2 class="title is-3">System Design</h2>
         <div class="content has-text-centered">
-          <img src="./static/images/SystemLayout.png" alt="System Layout" style="max-width: 100%; height: auto;">
+          <img src="./static/images/system.png" alt="System Layout" style="max-width: 100%; height: auto;">
+        </div>
+        <div class="content">
+          <p>
+            Overview of the TipMatch framework. The Cartesian mapping network first predicts a vector that aligns human and robot fingertip positions. This estimate provides a direct correspondence between the two hand morphologies and serves as input for subsequent retargeting.
+          </p>
+          <p>
+            The predicted vector is added to the scaled human fingertip position to obtain the target robot fingertip position. This target is then used as the optimization objective for retargeting, which computes the corresponding joint angles. Finally, joint impedance control drives the robotic hand to track the resulting configuration during execution.
+          </p>
         </div>
       </div>
     </div>
@@ -237,13 +238,147 @@
 </section>
 
 
-<!-- <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>
-</code></pre>
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Tool-Use Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Challenging Tool-Use Results</h2>
+
+        <!-- Analysis of Results -->
+        <div class="content">
+          <p>
+            We evaluate our method on five challenging tool-use tasks specifically designed to isolate finger dexterity from arm motion. The robotic arm remains stationary, while all manipulations are executed solely by finger movements. Each task is repeated ten times, and success rates (SR) are reported. As summarized in the table above, our approach demonstrates strong improvements after fine-tuning, achieving an overall success rate of <b>84.0%</b>, compared to only <b>36.0%</b> before fine-tuning.
+          </p>
+          <p>
+            The tasks cover diverse tool manipulations, including chopsticks, brush, syringe, scissors, and spray bottle. Before fine-tuning, performance was limited because the operator had to adopt unnatural or counterintuitive finger gestures, resulting in unstable grasps and frequent failures. For instance, chopsticks and scissors tasks had only a 10% success rate due to the difficulty of consistently reproducing morphology-adapted grasps.
+          </p>
+          <p>
+            After fine-tuning, our networks reinterpret natural, operator-friendly finger gestures into robot-specific motions adapted to the hand morphology. As a result, success rates increased substantially across all tasks: 60% for chopsticks, 90% for brush, 100% for syringe, 90% for scissors, and 80% for spray bottle use. These results confirm that fine-tuning effectively compensates for human–robot morphological differences, reduces operator burden, and enables robust execution of challenging tool-use tasks.
+          </p>
+        </div>
+
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-hoverable is-fullwidth has-text-centered">
+            <caption class="has-text-weight-semibold" style="caption-side: top; margin-bottom: 6px;">
+              Comparison of Success Rates Before and After Fine-Tuning
+            </caption>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Chopsticks</th>
+                <th>Brush</th>
+                <th>Syringe</th>
+                <th>Scissors</th>
+                <th>Spray</th>
+                <th>Overall</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Before</td>
+                <td>1/10</td>
+                <td>4/10</td>
+                <td>6/10</td>
+                <td>1/10</td>
+                <td>6/10</td>
+                <td>36.0%</td>
+              </tr>
+              <tr>
+                <td>After</td>
+                <td>6/10</td>
+                <td>9/10</td>
+                <td>10/10</td>
+                <td>9/10</td>
+                <td>8/10</td>
+                <td><b>84.0%</b></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Bar. -->
+        <div class="tabs is-centered" style="max-width: 100%;">
+          <ul class="tab-row">
+            <div class="tab-column">
+              <li><a data-video="Chopsticks">Chopsticks</a></li>
+              <li><a data-video="Brush">Brush</a></li>
+              <li><a data-video="Syringe">Syringe</a></li>
+              <li><a data-video="Scissors">Scissors</a></li>
+              <li><a data-video="Spray">Spray Bottle</a></li>
+            </div>
+          </ul>
+        </div>
+
+        <!-- Video and Description. -->
+        <div class="columns is-centered">
+          <div class="column is-four-fifths">
+            <!-- Task Description -->
+            <h3 class="title is-4">Task Description</h3>
+            <p id="task-description" class="has-text-justified">
+              <b>Chopsticks:</b> The robotic hand clamps chopsticks and must pick up and hold a fabric toy securely for 5 seconds.
+            </p>
+            <!-- Video -->
+            <h3 class="title is-4">Video</h3>
+            <div id="video-container" class=".publication-video-tool">
+              <video id="selected-video" controls muted playsinline width="100%">
+                <source id="video-source" src="./static/videos/Chopsticks.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          const tasks = {
+            "Chopsticks": {
+              video: "./static/videos/Chopsticks.mp4",
+              desc: "<b>Chopsticks:</b> The robotic hand clamps chopsticks and must pick up and hold a fabric toy securely for 5 seconds."
+            },
+            "Brush": {
+              video: "./static/videos/Brush.mp4",
+              desc: "<b>Brush:</b> The robotic hand draws a vertical line on paper using finger motions."
+            },
+            "Syringe": {
+              video: "./static/videos/Syringe.mp4",
+              desc: "<b>Syringe:</b> The robotic hand grips a syringe and presses the plunger with the thumb to fully expel its contents."
+            },
+            "Scissors": {
+              video: "./static/videos/Scissors.mp4",
+              desc: "<b>Scissors:</b> The robotic hand cuts a 5 mm wide paper strip in three open–close cycles."
+            },
+            "Spray": {
+              video: "./static/videos/Spray.mp4",
+              desc: "<b>Spray Bottle:</b> The robotic hand grasps a spray bottle and presses the trigger to spray water within 40 seconds."
+            }
+          };
+
+          document.querySelectorAll(".tab-row li a").forEach(tab => {
+            tab.addEventListener("click", function() {
+              const key = this.getAttribute("data-video");
+              const videoSource = document.getElementById("video-source");
+              const video = document.getElementById("selected-video");
+              const desc = document.getElementById("task-description");
+
+              videoSource.src = tasks[key].video;
+              desc.innerHTML = tasks[key].desc;
+
+              // reload video
+              video.load();
+              video.play();
+
+              // 更新tab样式
+              document.querySelectorAll(".tab-row li").forEach(li => li.classList.remove("is-active"));
+              this.parentElement.classList.add("is-active");
+            });
+          });
+        </script>
+      </div>
+    </div>
+    <!--/ Tool-Use Results. -->
   </div>
-</section> -->
+</section>
+
 
 
 <footer class="footer">
