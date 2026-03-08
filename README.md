@@ -3,7 +3,6 @@
 <div align="center">
 
 [![Project Page](https://img.shields.io/badge/Project-Page-blue.svg)](https://TipMatch.github.io/TipMatch/)
-<!-- [![arXiv](https://img.shields.io/badge/arXiv-24xx.xxxxx-B31B1B.svg)](https://arxiv.org/abs/xxxx.xxxxx) -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <br>
